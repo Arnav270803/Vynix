@@ -1,10 +1,33 @@
+
+
 import React from 'react'
 import { motion } from 'motion/react'
 
-// Utility function to merge class names (since you don't have cn from utils)
-const cn = (...classes) => {
-  return classes.filter(Boolean).join(' ')
+const cn = (...classes) => classes.filter(Boolean).join(' ')
+
+const HoverBorderGradient = ({ children, containerClassName, className, as: Tag = 'div', duration = 1, clockwise = true, ...props }) => {
+  const gradientStyle = { background: `conic-gradient(from 0deg, transparent, #e2e8f0, #cbd5e1, #94a3b8, #64748b, #475569, #334155, transparent)` }
+  const glowStyle = { background: `conic-gradient(from 0deg, transparent, #f1f5f9, #e2e8f0, #cbd5e1, #94a3b8, transparent)` }
+
+  return (
+    <Tag className={cn('relative flex shrink-0 items-center justify-center overflow-hidden p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 group', containerClassName)} {...props}>
+      <div className={cn('absolute inset-0 opacity-75 blur-sm transition-all duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-spin', containerClassName)} style={{...gradientStyle, animationDuration: `${duration * 3}s`, animationDirection: clockwise ? 'normal' : 'reverse'}} />
+      <div className={cn('absolute inset-0 opacity-0 blur-md transition-all duration-1000 group-hover:opacity-60', containerClassName)} style={glowStyle} />
+      <div className={cn('relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center px-4 py-2 text-sm font-medium backdrop-blur-3xl', className)}>
+        {children}
+      </div>
+    </Tag>
+  )
 }
+
+const PlayIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-black dark:text-white">
+    <path d="M8 5v14l11-7z" fill="currentColor" />
+  </svg>
+)
+
+
+{/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
 
 const LandingPage = () => {
   return (
@@ -39,18 +62,23 @@ const LandingPage = () => {
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
           className="mt-4 text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl"
         >
-Create Engaging 3Blue1Brown-Style Educational Videos with Vynix        </motion.p>
+Craft 3Blue1Brown-style animated educational videos with Vynix.        </motion.p>
         
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="mt-8 px-8 py-3 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black rounded-lg font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors"
+          className="mt-8 group"
         >
-          Get Started
-        </motion.button>
+          <HoverBorderGradient
+            containerClassName="rounded-full"
+            as="button"
+            className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-8 py-3 font-medium"
+          >
+            <PlayIcon />
+            <span>Get Started</span>
+          </HoverBorderGradient>
+        </motion.div>
       </div>
     </div>
   )
