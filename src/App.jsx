@@ -1,12 +1,15 @@
 import React from 'react';
-import Navbar from './Components/Navbar';
-import PromptBox from './Components/PromptBox';
+import { Routes, Route } from 'react-router-dom'
+import Landing from './Pages/Landing';
+import Home from './Pages/Home';
 
 const App = () => {
   return (
     <div className='bg-white  text-gray-900 min-h-screen'>
-      <Navbar />
-      <PromptBox />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
     </div>
   );
 };
