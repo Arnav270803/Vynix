@@ -1,10 +1,11 @@
 import React from 'react'
-import Navbar from '../Components/Navbar'
 import PromptBox from '../Components/PromptBox'
+import NavbarForHome from '../Components/NavbarForHome'
 
 const Home = () => {
   return (
     <div>
+      <NavbarForHome />
         <PromptBox />
     </div>
   )

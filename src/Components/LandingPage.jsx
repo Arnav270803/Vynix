@@ -41,12 +41,12 @@ const LandingPage = () => {
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
         
         {/* Main Content - Takes up remaining space */}
-        <div className="relative z-20 flex flex-1 flex-col items-center justify-center text-center px-4">
+        <div className="relative top-10 z-20 flex flex-1 flex-col items-center justify-center text-center px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-8 text-4xl font-bold text-transparent sm:text-7xl dark:from-neutral-50 dark:to-neutral-400"
+            className="bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-8 text-4xl font-bold cursor-pointer text-transparent sm:text-7xl dark:from-neutral-50 dark:to-neutral-400"
           >
             Animate Learning
           </motion.h1>
