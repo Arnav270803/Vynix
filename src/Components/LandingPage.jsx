@@ -1,7 +1,5 @@
-
-
 import React from 'react'
-import { motion } from 'motion/react'
+import { motion } from 'framer-motion'
 
 const cn = (...classes) => classes.filter(Boolean).join(' ')
 
@@ -20,67 +18,111 @@ const HoverBorderGradient = ({ children, containerClassName, className, as: Tag 
   )
 }
 
-const PlayIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-black dark:text-white">
-    <path d="M8 5v14l11-7z" fill="currentColor" />
-  </svg>
-)
-
-
-{/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-
 const LandingPage = () => {
   return (
-    <div className="relative flex min-h-screen w-full items-center justify-center bg-white dark:bg-black">
-      {/* Grid Background Pattern */}
-      <div
-        className={cn(
-          "absolute inset-0",
-          "[background-size:40px_40px]",
-          "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
-          "dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]"
-        )} 
+    <>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
       />
-      
-      {/* Radial gradient for the container to give a faded look */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
-      
-      {/* Content */}
-      <div className="relative z-20 flex flex-col items-center text-center px-4">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-8 text-4xl font-bold text-transparent sm:text-7xl"
-        >
-          Animate Learning
-        </motion.h1>
+
+      <div className="relative min-h-screen w-full bg-white dark:bg-black flex flex-col">
+        {/* Background Grid */}
+        <div
+          className={cn(
+            "absolute inset-0",
+            "[background-size:40px_40px]",
+            "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
+            "dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]"
+          )} 
+        />
         
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-          className="mt-4 text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl"
-        >
-Craft 3Blue1Brown-style animated educational videos with Vynix.        </motion.p>
+        {/* Radial gradient for the container to give a faded look */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
         
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-          className="mt-8 group"
-        >
-          <HoverBorderGradient
-            containerClassName="rounded-full"
-            as="button"
-            className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-8 py-3 font-medium"
+        {/* Main Content - Takes up remaining space */}
+        <div className="relative z-20 flex flex-1 flex-col items-center justify-center text-center px-4">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-8 text-4xl font-bold text-transparent sm:text-7xl dark:from-neutral-50 dark:to-neutral-400"
           >
-            <PlayIcon />
-            <span>Get Started</span>
-          </HoverBorderGradient>
-        </motion.div>
+            Animate Learning
+          </motion.h1>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+            className="mt-4 text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl"
+          >
+            Craft 3Blue1Brown-style animated educational videos with Vynix.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+            className="mt-8 group"
+          >
+            <HoverBorderGradient
+              containerClassName="rounded-full"
+              as="button"
+              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-8 py-3 font-medium"
+            >
+              <span>Get Started</span>
+            </HoverBorderGradient>
+          </motion.div>
+        </div>
+
+        {/* Footer - Positioned at bottom */}
+        <footer className="relative z-20 text-black dark:text-white px-6 py-14">
+          <div className="flex justify-between items-start">
+            <div>
+              <div 
+                className="text-4xl text-black dark:text-gray-300" 
+                style={{fontFamily: 'Caveat, cursive'}}
+              >
+                Vynix
+              </div> 
+
+              <div 
+                className="py-2 text-xl text-black dark:text-gray-400"
+                style={{fontFamily: 'Caveat, cursive'}}
+              >
+                Build in Public
+                <a 
+                  href="https://x.com/Bokinsha" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="ml-1 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer transition-colors duration-200"
+                >
+                  @Arnav
+                </a>
+              </div>
+            </div>
+
+
+            <div className='cursor-pointer hover:underline dark:text-gray-300 hover:text-blue-700'
+            style={{fontFamily: 'Caveat, cursive'}}>
+              <div>
+                <a href="#" className='hover:underline  text-xl dark:text-gray-300 hover:text-blue-700 '
+                style={{fontFamily: 'Caveat, cursive'}}>
+                  Contact Us
+                </a>
+                </div>
+
+                <div className='py-3'>
+                <a href="#" className= 'hover:underlie text-white text-xl  cursor-pointer hover:text-blue-700'>
+                  Our Mission
+                </a>
+                </div>
+            </div>
+          </div>
+        </footer>
       </div>
-    </div>
+    </>
   )
 }
 
