@@ -4,6 +4,17 @@ import { motion } from "framer-motion";
 
 const cn = (...classes) => classes.filter(Boolean).join(' ')
 
+// CHANGE 1: Added PromptBox component inside this file
+const PromptBox = () => {
+  return (
+    <div className='flex items-center justify-center mt-8'>
+      <div className='border border-gray-400 w-80 h-80'>
+        
+      </div>
+    </div>
+  )
+}
+
 export function VynixLampDemo() {
   return (
     <LampContainer>
@@ -15,7 +26,7 @@ export function VynixLampDemo() {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="mt-8 bg-gradient-to-br from-gray-300 to-gray-500 py-4 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent"
+        className="mt-1 bg-gradient-to-br from-gray-300 to-gray-500 py-4 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent"
         style={{fontFamily: 'Caveat, cursive'}}
       >
         VYNIX
@@ -29,11 +40,14 @@ export function VynixLampDemo() {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="mt-6 bg-gradient-to-br from-gray-400 via-gray-300 to-gray-500 bg-clip-text text-center text-xl font-medium tracking-wide text-transparent"
+        className="mt-4 bg-gradient-to-br mb-12 from-gray-400 via-gray-300 to-gray-500 bg-clip-text text-center text-xl font-medium tracking-wide text-transparent"
         style={{fontFamily: 'Caveat, cursive'}}
       >
         Generate explainer videos to learn anything
       </motion.p>
+      
+      {/* CHANGE 2: Added PromptBox right after the text in the same container */}
+      <PromptBox />
     </LampContainer>
   );
 }
@@ -115,7 +129,7 @@ export const LampContainer = ({
           <div
             className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] dark:bg-black "></div>
         </div>
-        <div className="relative z-50 flex -translate-y-65 flex-col items-center px-8">
+        <div className="relative z-50 flex -translate-y-45 flex-col items-center px-8">
           {children}
         </div>
       </div>
