@@ -4,16 +4,18 @@ import { motion } from "framer-motion";
 
 const cn = (...classes) => classes.filter(Boolean).join(' ')
 
-// CHANGE 1: Added PromptBox component inside this file
+{/*--------------------------------------------------------------Promptbox------------------------------------------------------------------------------ */}
 const PromptBox = () => {
   return (
-    <div className='flex items-center justify-center mt-8'>
+    <div className='flex items-center justify-center '>
       <div className='border border-gray-400 w-80 h-80'>
         
       </div>
     </div>
   )
 }
+
+{/*-----------------------------------------------------------------------Yoo, Vynix lamp animation here------------------------------------------------- */}
 
 export function VynixLampDemo() {
   return (
@@ -26,7 +28,7 @@ export function VynixLampDemo() {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="mt-1 bg-gradient-to-br from-gray-300 to-gray-500 py-4 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent"
+        className=" bg-gradient-to-br from-gray-300 to-gray-500  bg-clip-text text-center text-6xl font-bold tracking-tight text-transparent"
         style={{fontFamily: 'Caveat, cursive'}}
       >
         VYNIX
@@ -40,7 +42,7 @@ export function VynixLampDemo() {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="mt-4 bg-gradient-to-br mb-12 from-gray-400 via-gray-300 to-gray-500 bg-clip-text text-center text-xl font-medium tracking-wide text-transparent"
+        className="mt-2 bg-gradient-to-br mb-12 from-gray-400 via-gray-300 to-gray-500 bg-clip-text text-center text-xl font-medium tracking-wide text-transparent"
         style={{fontFamily: 'Caveat, cursive'}}
       >
         Generate explainer videos to learn anything
@@ -62,7 +64,7 @@ export const LampContainer = ({
       
       <div
         className={cn(
-          "relative flex h-screen flex-col items-center justify-start pt-8 overflow-hidden bg-black w-full rounded-md z-0",
+          "relative flex min-h-screen flex-col items-center justify-start pt-8 overflow-hidden bg-black w-full rounded-md z-0",
           className
         )}>
         <div
