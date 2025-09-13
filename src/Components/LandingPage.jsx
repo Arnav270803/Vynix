@@ -1,17 +1,57 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
+import { AppContext } from '../context/AppContext'
 
 const cn = (...classes) => classes.filter(Boolean).join(' ')
 
-const HoverBorderGradient = ({ children, containerClassName, className, as: Tag = 'div', duration = 1, clockwise = true, ...props }) => {
-  const gradientStyle = { background: `conic-gradient(from 0deg, transparent, #e2e8f0, #cbd5e1, #94a3b8, #64748b, #475569, #334155, transparent)` }
-  const glowStyle = { background: `conic-gradient(from 0deg, transparent, #f1f5f9, #e2e8f0, #cbd5e1, #94a3b8, transparent)` }
+const HoverBorderGradient = ({ 
+  children, 
+  containerClassName, 
+  className, 
+  as: Tag = 'div', 
+  duration = 1, 
+  clockwise = true, 
+  ...props 
+}) => {
+  const gradientStyle = { 
+    background: `conic-gradient(from 0deg, transparent, #e2e8f0, #cbd5e1, #94a3b8, #64748b, #475569, #334155, transparent)` 
+  }
+  const glowStyle = { 
+    background: `conic-gradient(from 0deg, transparent, #f1f5f9, #e2e8f0, #cbd5e1, #94a3b8, transparent)` 
+  }
 
   return (
-    <Tag className={cn('relative flex shrink-0 items-center justify-center overflow-hidden p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 group', containerClassName)} {...props}>
-      <div className={cn('absolute inset-0 opacity-75 blur-sm transition-all duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-spin', containerClassName)} style={{...gradientStyle, animationDuration: `${duration * 3}s`, animationDirection: clockwise ? 'normal' : 'reverse'}} />
-      <div className={cn('absolute inset-0 opacity-0 blur-md transition-all duration-1000 group-hover:opacity-60', containerClassName)} style={glowStyle} />
-      <div className={cn('relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center px-4 py-2 text-sm font-medium backdrop-blur-3xl', className)}>
+    <Tag 
+      className={cn(
+        'relative flex shrink-0 items-center justify-center overflow-hidden p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 group', 
+        containerClassName
+      )} 
+      {...props}
+    >
+      <div 
+        className={cn(
+          'absolute inset-0 opacity-75 blur-sm transition-all duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-spin', 
+          containerClassName
+        )} 
+        style={{
+          ...gradientStyle, 
+          animationDuration: `${duration * 3}s`, 
+          animationDirection: clockwise ? 'normal' : 'reverse'
+        }} 
+      />
+      <div 
+        className={cn(
+          'absolute inset-0 opacity-0 blur-md transition-all duration-1000 group-hover:opacity-60', 
+          containerClassName
+        )} 
+        style={glowStyle} 
+      />
+      <div 
+        className={cn(
+          'relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center px-4 py-2 text-sm font-medium backdrop-blur-3xl', 
+          className
+        )}
+      >
         {children}
       </div>
     </Tag>
@@ -19,6 +59,8 @@ const HoverBorderGradient = ({ children, containerClassName, className, as: Tag 
 }
 
 const LandingPage = () => {
+  const { setShowLogin, user } = useContext(AppContext)
+
   return (
     <>
       <link
@@ -70,10 +112,22 @@ const LandingPage = () => {
               containerClassName="rounded-full"
               as="button"
               className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-8 py-3 font-medium"
+              onClick={() => setShowLogin(true)}
             >
-              <span>Get Started</span>
+              {user ? 'Welcome Back!' : 'Get Started'}
             </HoverBorderGradient>
           </motion.div>
+
+          {/* Show user status */}
+          {user && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-4 text-green-600 dark:text-green-400"
+            >
+              You are logged in!
+            </motion.p>
+          )}
         </div>
 
         {/* Footer - Positioned at bottom */}
@@ -103,21 +157,21 @@ const LandingPage = () => {
               </div>
             </div>
 
-
             <div className='cursor-pointer hover:underline dark:text-gray-300 hover:text-blue-700'
-            style={{fontFamily: 'Caveat, cursive'}}>
+              style={{fontFamily: 'Caveat, cursive'}}>
               <div>
-                <a href="#" className='hover:underline  text-xl dark:text-gray-300 hover:text-blue-700 '
-                style={{fontFamily: 'Caveat, cursive'}}>
+                <a href="#" className='hover:underline text-xl dark:text-gray-300 hover:text-blue-700'
+                  style={{fontFamily: 'Caveat, cursive'}}>
                   Contact Us
                 </a>
-                </div>
+              </div>
 
-                <div className='py-3'>
-                <a href="#" className= 'hover:underlie text-white text-xl  cursor-pointer hover:text-blue-700'>
+              <div className='py-3'>
+                <a href="#" className='hover:underline text-xl dark:text-gray-300 cursor-pointer hover:text-blue-700'
+                  style={{fontFamily: 'Caveat, cursive'}}>
                   Our Mission
                 </a>
-                </div>
+              </div>
             </div>
           </div>
         </footer>
