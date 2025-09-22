@@ -30,9 +30,6 @@ const Navbar = () => {
 
 
             <div className='flex items-center space-x-3 mr-15'>
-              <button className='text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-medium cursor-pointer px-4 py-2 rounded-lg transition-colors'>
-                Login
-              </button>
                <button className={` bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-lg cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 font-medium`}>
                   Sign Up
                 </button>

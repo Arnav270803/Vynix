@@ -1,19 +1,37 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../context/AppContext'
+import { assets } from '../assets/assets'
 
 const Login = () => {
+
+  const [state,setState] = useState('login')
+  const {setShowLogin,setUser,navigate } = useContext(AppContext)
+  
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+// handling the switching states 
+
 
   return (
     <div className='min-h-screen bg-gray-50 flex items-center justify-center px-4'>
-      <div className='bg-white rounded-2xl shadow-lg p-8 w-full max-w-md'>
-        {/* Header */}
+      <div className='bg-white rounded-2xl shadow-lg p-8 w-full max-w-md w-full mx-4'>
+
+        <img
+          onClick={() => setShowLogin(false)}
+          src={assets.cross_icon}
+          alt="close"
+          className=' top-4 right-4 w-4 h-4 hover:scale-125 cursor-pointer transition-all duration-300'
+        />
+
+{/*Header text guys  */}
         <div className='text-center mb-8'>
           <h1 className='text-2xl font-semibold text-gray-900 mb-2'>
             Welcome to Vynix
           </h1>
         </div>
 
-        {/* Google Sign In Button */}
+        {/* Google auto Sign In Button */}
         <button className='w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 transition-colors mb-6'>
           <svg className='w-5 h-5' viewBox='0 0 24 24'>
             <path fill='#4285F4' d='M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z'/>
@@ -24,14 +42,14 @@ const Login = () => {
           Continue with Google
         </button>
 
-        {/* Divider */}
+        {/*just a  Divider */}
         <div className='flex items-center mb-6'>
           <div className='flex-1 border-t border-gray-200'></div>
           <span className='px-4 text-gray-500 text-sm'>or</span>
           <div className='flex-1 border-t border-gray-200'></div>
         </div>
 
-        {/* Email Input */}
+        {/* Email Input here  */}
         <div className='mb-6'>
           <input
             type='email'
@@ -41,14 +59,26 @@ const Login = () => {
             className='w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-colors'
           />
         </div>
+           {/* password input here      */}
+        <div className='mb-6'>
+          <input
+            type='Password'
+            placeholder='PASSWORD'
+            value={password}
+            onChange={(e) =>setPassword(e.target.value)}
+            className='w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-colors'
+          />
+        </div>
 
-        <button className='w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-lg transition-colors mb-6'>
+
+        <button className='w-full cursor-pointer  bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-lg transition-colors mb-6'>
           Continue with email
         </button>
 
+{/* if you already have an button then login from here  */}
         <div className='text-center'>
           <span className='text-gray-600 text-sm'>Have an Account? </span>
-          <button className='text-gray-900 font-medium text-sm hover:underline'>
+          <button className='text-gray-900 cursor-pointer font-medium text-sm hover:underline'>
             Log In
           </button>
         </div>
@@ -58,3 +88,8 @@ const Login = () => {
 }
 
 export default Login
+
+{/*currently my auth is simple , whether you have an account or now , you have to 
+  give me your id and password until i connected it to google , when i connect it to the google 
+  then i will have change like , add forgot password , add name whiule registering , also add state like 
+  currently the user have an account or now so that they can it's easier for them  */}
