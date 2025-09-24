@@ -1,38 +1,75 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../context/AppContext'
 import { assets } from '../assets/assets'
+import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
-  const [state,setState] = useState('login')
-  const {setShowLogin,setUser,navigate } = useContext(AppContext)
+  const [state, setState] = useState('login')
+  const { setShowLogin, setUser, navigate, backendurl, setToken } = useContext(AppContext)
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-// handling the switching states 
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
 
+    try {
+      if (state === 'Login') {
+        const { data } = await axios.post(backendurl + '/api/user/login', 
+          { email, password })
+
+        if (data.success) {
+          setToken(data.token)
+          setUser(data.user)
+          localStorage.setItem('token', data.token)
+          setShowLogin(false)
+        } else {
+          toast.error(data.message)
+        }
+      } else {
+        const { data } = await axios.post(backendurl + '/api/user/register', 
+          { email, password })
+
+        if (data.success) {
+          setToken(data.token)
+          setUser(data.user)
+          localStorage.setItem('token', data.token)
+          setShowLogin(false)
+        } else {
+          toast.error(data.message)
+        }
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
 
   return (
-    <div className='min-h-screen bg-gray-50 flex items-center justify-center px-4'>
-      <div className='bg-white rounded-2xl shadow-lg p-8 w-full max-w-md w-full mx-4'>
+    <div className='fixed top-0 left-0 right-0 bottom-0 z-50 backdrop-blur-sm bg-black/30 flex items-center justify-center px-4'>
+      <form
+        onSubmit={onSubmitHandler}
+        className='relative bg-white rounded-2xl shadow-lg p-8 w-full max-w-md mx-4'>
 
         <img
           onClick={() => setShowLogin(false)}
           src={assets.cross_icon}
           alt="close"
-          className=' top-4 right-4 w-4 h-4 hover:scale-125 cursor-pointer transition-all duration-300'
+          className='absolute top-4 right-4 w-4 h-4 hover:scale-125 cursor-pointer transition-all duration-300'
         />
 
-{/*Header text guys  */}
+        {/* Header text */}
         <div className='text-center mb-8'>
           <h1 className='text-2xl font-semibold text-gray-900 mb-2'>
             Welcome to Vynix
           </h1>
         </div>
 
-        {/* Google auto Sign In Button */}
-        <button className='w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 transition-colors mb-6'>
+        {/* Google Sign In Button */}
+        <button 
+          type="button"
+          className='w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 transition-colors mb-6'>
           <svg className='w-5 h-5' viewBox='0 0 24 24'>
             <path fill='#4285F4' d='M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z'/>
             <path fill='#34A853' d='M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z'/>
@@ -42,14 +79,14 @@ const Login = () => {
           Continue with Google
         </button>
 
-        {/*just a  Divider */}
+        {/* Divider */}
         <div className='flex items-center mb-6'>
           <div className='flex-1 border-t border-gray-200'></div>
           <span className='px-4 text-gray-500 text-sm'>or</span>
           <div className='flex-1 border-t border-gray-200'></div>
         </div>
 
-        {/* Email Input here  */}
+        {/* Email Input */}
         <div className='mb-6'>
           <input
             type='email'
@@ -57,39 +94,30 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className='w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-colors'
+            required
           />
         </div>
-           {/* password input here      */}
+
+        {/* Password Input */}
         <div className='mb-6'>
           <input
-            type='Password'
+            type='password'
             placeholder='PASSWORD'
             value={password}
-            onChange={(e) =>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             className='w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-colors'
+            required
           />
         </div>
 
-
-        <button className='w-full cursor-pointer  bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-lg transition-colors mb-6'>
+        <button 
+          type="submit"
+          className='w-full cursor-pointer bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-lg transition-colors mb-6'>
           Continue with email
         </button>
-
-{/* if you already have an button then login from here  */}
-        <div className='text-center'>
-          <span className='text-gray-600 text-sm'>Have an Account? </span>
-          <button className='text-gray-900 cursor-pointer font-medium text-sm hover:underline'>
-            Log In
-          </button>
-        </div>
-      </div>
+      </form>
     </div>
   )
 }
 
 export default Login
-
-{/*currently my auth is simple , whether you have an account or now , you have to 
-  give me your id and password until i connected it to google , when i connect it to the google 
-  then i will have change like , add forgot password , add name whiule registering , also add state like 
-  currently the user have an account or now so that they can it's easier for them  */}

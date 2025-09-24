@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import LandingPage from '../Components/LandingPage'
 import Navbar from '../Components/Navbar'
+import Login from '../Components/Login'
+import { AppContext } from '../context/AppContext'
+
 const Landing = () => {
+  const { showLogin } = useContext(AppContext)
+  
   return (
     <div>
-        <Navbar />
-        <LandingPage />
+      <Navbar />
+      <LandingPage />
+      {showLogin && <Login />}
     </div>
   )
 }
