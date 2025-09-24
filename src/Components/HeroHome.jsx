@@ -2,147 +2,111 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const cn = (...classes) => classes.filter(Boolean).join(' ')
-
-{/*--------------------------------------------------------------Promptbox------------------------------------------------------------------------------ */}
-const PromptBox = () => {
+const SimpleVynixHero = () => {
   return (
-    <div className='flex items-center justify-center '>
-      <div className='border border-gray-400 w-80 h-80'>
+    <div className="h-screen w-full bg-black flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Google Fonts */}
+      <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+
+
+{/*----------------------------------------------The sparkles code , don't touch it unless you wanted to change the animation {Ai generated code }---------------------------------------------- */}
+      <motion.div 
+        className="w-full absolute inset-0 h-screen"
+        animate={{ rotate: 720 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      >
+        {/* Background glow effects */}
+        <div className="absolute inset-0 bg-gradient-radial from-purple-500/10 via-transparent to-transparent"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-blue-400/5 to-transparent"></div>
+        <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-gradient-radial from-white/5 to-transparent"></div>
         
+        {/* Animated  particles */}
+        {[...Array(80)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-white rounded-full"
+            style={{
+              width: Math.random() * 3 + 1 + 'px',
+              height: Math.random() * 3 + 1 + 'px',
+              left: Math.random() * 100 + '%',
+              top: Math.random() * 100 + '%',
+            }}
+            animate={{
+              opacity: [0.2, 1, 0.2],
+              scale: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+        
+        {/* Floating larger particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={`large-${i}`}
+            className="absolute bg-white/40 rounded-full blur-sm"
+            style={{
+              width: Math.random() * 6 + 4 + 'px',
+              height: Math.random() * 6 + 4 + 'px',
+              left: Math.random() * 100 + '%',
+              top: Math.random() * 100 + '%',
+            }}
+            animate={{
+              y: [-20, 20, -20],
+              x: [-10, 10, -10],
+              opacity: [0.1, 0.4, 0.1],
+            }}
+            transition={{
+              duration: Math.random() * 8 + 6,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </motion.div>
+      
+
+
+
+
+
+      
+      {/* Main content */}
+      <div className="relative z-20 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="md:text-7xl text-5xl lg:text-6xl font-bold bg-gradient-to-br from-gray-300 to-gray-500 bg-clip-text text-transparent"
+          style={{ fontFamily: 'Caveat, cursive' }}
+        >
+          VYNIX
+        </motion.h1>
+        
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-xl md:text-2xl text-gray-400 mt-4 mb-12"
+          style={{ fontFamily: 'Caveat, cursive' }}
+        >
+          Generate explainer videos to learn anything
+        </motion.p>
+        
+        <div className='flex items-center justify-center'>
+          <div className='border border-gray-400 w-80 h-80 rounded-lg backdrop-blur-sm bg-black/20'>
+            {/* Your prompt content here */}
+          </div>
+        </div>
       </div>
     </div>
-  )
-}
-
-{/*-----------------------------------------------------------------------Yoo, Vynix lamp animation here------------------------------------------------- */}
-
-export function VynixLampDemo() {
-  return (
-    <LampContainer>
-      <motion.h1
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className=" bg-gradient-to-br from-gray-300 to-gray-500  bg-clip-text text-center text-6xl font-bold tracking-tight text-transparent"
-        style={{fontFamily: 'Caveat, cursive'}}
-      >
-        VYNIX
-      </motion.h1>
-      
-      <motion.p
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="mt-2 bg-gradient-to-br mb-12 from-gray-400 via-gray-300 to-gray-500 bg-clip-text text-center text-xl font-medium tracking-wide text-transparent"
-        style={{fontFamily: 'Caveat, cursive'}}
-      >
-        Generate explainer videos to learn anything
-      </motion.p>
-      
-      {/* CHANGE 2: Added PromptBox right after the text in the same container */}
-      <PromptBox />
-    </LampContainer>
-  );
-}
-
-export const LampContainer = ({
-  children,
-  className
-}) => {
-  return (
-    <>
-      <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      
-      <div
-        className={cn(
-          "relative flex min-h-screen flex-col items-center justify-start pt-8 overflow-hidden bg-black w-full rounded-md z-0",
-          className
-        )}>
-        <div
-          className="relative flex w-full h-120 scale-y-125 items-center justify-center isolate z-0 ">
-          <motion.div
-            initial={{ opacity: 0.5, width: "15rem" }}
-            whileInView={{ opacity: 1, width: "30rem" }}
-            transition={{
-              delay: 0.3,
-              duration: 0.8,
-              ease: "easeInOut",
-            }}
-            style={{
-              backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-            }}
-            className="absolute inset-auto right-1/2 h-56 overflow-visible w-[30rem] bg-gradient-conic from-gray-300 via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top]">
-            <div
-              className="absolute  w-[100%] left-0 bg-black h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
-            <div
-              className="absolute  w-40 h-[100%] left-0 bg-black  bottom-0 z-20 [mask-image:linear-gradient(to_right,white,transparent)]" />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0.5, width: "15rem" }}
-            whileInView={{ opacity: 1, width: "30rem" }}
-            transition={{
-              delay: 0.3,
-              duration: 0.8,
-              ease: "easeInOut",
-            }}
-            style={{
-              backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-            }}
-            className="absolute inset-auto left-1/2 h-56 w-[30rem] bg-gradient-conic from-transparent via-transparent to-gray-300 text-white [--conic-position:from_290deg_at_center_top]">
-            <div
-              className="absolute  w-40 h-[100%] right-0 bg-black  bottom-0 z-20 [mask-image:linear-gradient(to_left,white,transparent)]" />
-            <div
-              className="absolute  w-[100%] right-0 bg-black h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
-          </motion.div>
-          <div
-            className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-black blur-2xl"></div>
-          <div
-            className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
-          <div
-            className="absolute inset-auto z-50 h-36 w-[28rem] -translate-y-1/2 rounded-full bg-gray-400 opacity-50 blur-3xl"></div>
-          <motion.div
-            initial={{ width: "8rem" }}
-            whileInView={{ width: "16rem" }}
-            transition={{
-              delay: 0.3,
-              duration: 0.8,
-              ease: "easeInOut",
-            }}
-            className="absolute inset-auto z-30 h-25 w-64 -translate-y-[6rem] rounded-full bg-gray-300 blur-2xl"></motion.div>
-          <motion.div
-            initial={{ width: "15rem" }}
-            whileInView={{ width: "30rem" }}
-            transition={{
-              delay: 0.3,
-              duration: 0.8,
-              ease: "easeInOut",
-            }}
-            className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-gray-300 "></motion.div>
-
-          <div
-            className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] dark:bg-black "></div>
-        </div>
-        <div className="relative z-50 flex -translate-y-45 flex-col items-center px-8">
-          {children}
-        </div>
-      </div>
-    </>
   );
 };
 
-const HeroHome = () => {
-  return (
-    <VynixLampDemo />
-  )
-}
-
-export default HeroHome
+export default SimpleVynixHero;
