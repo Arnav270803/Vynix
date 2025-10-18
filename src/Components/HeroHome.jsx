@@ -16,13 +16,10 @@ const SimpleVynixHero = () => {
         animate={{ rotate: 720 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       >
-        {/* Background glow effects */}
-        <div className="absolute inset-0 bg-gradient-radial from-purple-500/10 via-transparent to-transparent"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-blue-400/5 to-transparent"></div>
-        <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-gradient-radial from-white/5 to-transparent"></div>
+
         
         {/* Animated  particles */}
-        {[...Array(100)].map((_, i) => (
+        {[...Array(300)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute bg-white rounded-full"
@@ -70,6 +67,11 @@ const SimpleVynixHero = () => {
           />
         ))}
       </motion.div>
+
+
+
+
+      
 
       {/* Main content - centered and takes up available space */}
       <div className="relative z-20 flex-1 flex flex-col items-center justify-center text-center px-6">
