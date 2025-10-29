@@ -7,7 +7,7 @@ const AppContextProvider = (props) => {
   const [user, setUser] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const navigate = useNavigate(); // Add the navigate function
-    const [token , setToken] = useState(localStorage.getItem('token'))
+  const [token , setToken] = useState(localStorage.getItem('token'))
 
   const backendurl=import.meta.env.VITE_BACKEND_URL
 
