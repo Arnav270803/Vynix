@@ -9,6 +9,7 @@ const SimpleVynixHero = () => {
     <div className="min-h-screen w-full bg-black flex flex-col relative overflow-hidden">
       {/* Google Fonts */}
       <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 
       {/*----------------------------------------------The sparkles code , don't touch it unless you wanted to change the animation {Ai generated code }---------------------------------------------- */}
       <motion.div 
@@ -80,7 +81,7 @@ const SimpleVynixHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="md:text-7xl text-5xl lg:text-8xl font-bold bg-gradient-to-br from-gray-300 to-gray-500 bg-clip-text text-transparent"
-          style={{ fontFamily: 'Caveat, cursive' }}
+          style={{ fontFamily: 'Hanken Grotesk, sans-serif' }}
         >
           VYNIX
         </motion.h1>
@@ -90,7 +91,7 @@ const SimpleVynixHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl md:text-2xl text-gray-400 mt-4 mb-12"
-          style={{ fontFamily: 'Caveat, cursive' }}
+          style={{ fontFamily: 'Hanken Grotesk, sans-serif' }}
         >
           Generate explainer videos to learn anything
         </motion.p>
@@ -109,7 +110,7 @@ const SimpleVynixHero = () => {
               onChange={(e) => setInputValue(e.target.value)}
               className="flex-1 bg-transparent text-white placeholder-gray-400 resize-none outline-none min-h-[24px] max-h-32 scrollbar-hide"
               style={{ 
-                fontFamily: 'Caveat, cursive',
+                fontFamily: 'Hanken Grotesk, sans-serif',
                 fontSize: '18px'
               }}
               rows={1}
@@ -163,14 +164,14 @@ const SimpleVynixHero = () => {
           <div>
             <div 
               className="text-4xl text-gray-300" 
-              style={{fontFamily: 'Caveat, cursive'}}
+              style={{fontFamily: 'Caveat, cursive' }}
             >
               Vynix
             </div> 
 
             <div 
               className="py-2 text-xl text-gray-400"
-              style={{fontFamily: 'Caveat, cursive'}}
+              style={{fontFamily: 'Caveat, cursive' }}
             >
               Build in Public
               <a 
@@ -189,7 +190,7 @@ const SimpleVynixHero = () => {
               <a 
                 href="#" 
                 className="text-xl text-gray-300 hover:text-blue-300 hover:underline cursor-pointer transition-colors duration-200"
-                style={{fontFamily: 'Caveat, cursive'}}
+                style={{fontFamily: 'Caveat, cursive' }}
               >
                 Contact Us
               </a>
@@ -199,7 +200,7 @@ const SimpleVynixHero = () => {
               <a 
                 href="#" 
                 className="text-xl text-gray-300 hover:text-blue-300 hover:underline cursor-pointer transition-colors duration-200"
-                style={{fontFamily: 'Caveat, cursive'}}
+                style={{fontFamily: 'Caveat, cursive' }}
               >
                 Our Mission
               </a>
