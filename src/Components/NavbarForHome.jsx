@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 // Utility function to combine class names
 const cn = (...classes) => classes.filter(Boolean).join(' ')
 
-// HoverBorderGradient component from your landing page
+// HoverBorderGradient component from your landing page.
 const HoverBorderGradient = ({ 
   children, 
   containerClassName, 
@@ -26,7 +26,7 @@ const HoverBorderGradient = ({
     <Tag 
       className={cn(
         'relative flex shrink-0 items-center justify-center overflow-hidden p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 group', 
-        containerClassName
+        containerClassName 
       )} 
       {...props}
     >
@@ -44,6 +44,7 @@ const HoverBorderGradient = ({
       />
       
       {/* Glow effect on hover */}
+
       <div 
         className={cn(
           'absolute inset-0 opacity-0 blur-md transition-all duration-1000 group-hover:opacity-60', 
