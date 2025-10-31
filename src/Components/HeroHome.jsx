@@ -9,8 +9,8 @@ const SimpleVynixHero = () => {
     <div className="min-h-screen w-full bg-black flex flex-col relative overflow-hidden">
       {/* Google Fonts */}
       <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
-      <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
       {/*----------------------------------------------The sparkles code , don't touch it unless you wanted to change the animation {Ai generated code }---------------------------------------------- */}
       <motion.div 
@@ -18,13 +18,8 @@ const SimpleVynixHero = () => {
         animate={{ rotate: 720 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       >
-        {/* Background glow effects */}
-        <div className="absolute inset-0 bg-gradient-radial from-purple-500/10 via-transparent to-transparent"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-blue-400/5 to-transparent"></div>
-        <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-gradient-radial from-white/5 to-transparent"></div>
-        
         {/* Animated  particles */}
-        {[...Array(100)].map((_, i) => (
+        {[...Array(300)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute bg-white rounded-full"
