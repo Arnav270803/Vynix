@@ -4,6 +4,7 @@ import Landing from './Pages/Landing';
 import Home from './Pages/Home';
 import Login from './Components/Login'
 import AppContextProvider from './context/AppContext';
+import ChatsVideosPage from './Pages/ChatsVideosPage';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chatAndVideo" element={<ChatsVideosPage />} />
         </Routes>
       </div>
     </AppContextProvider>
