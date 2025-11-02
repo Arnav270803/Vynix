@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
 import { AppContext } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom'
 
 const cn = (...classes) => classes.filter(Boolean).join(' ')
 
@@ -60,6 +61,7 @@ const HoverBorderGradient = ({
 
 const LandingPage = () => {
   const { setShowLogin, user } = useContext(AppContext)
+  const navigate = useNavigate();
 
   return (
     <>
@@ -112,7 +114,7 @@ const LandingPage = () => {
               containerClassName="rounded-full"
               as="button"
               className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-8 py-3 font-medium"
-              onClick={() => setShowLogin(true)}
+               onClick={() => user ? navigate('/home') : setShowLogin(true)}
             >
               {user ? 'Welcome Back!' : 'Get Started'}
             </HoverBorderGradient>
