@@ -105,11 +105,11 @@ const ChatsVideos = () => {
                 target.style.height = Math.min(target.scrollHeight, 128) + 'px';
               }}
             />
-            <button className='bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors shrink-0'>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
-              </svg>
-            </button>
+<button className='bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors shrink-0'>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+  </svg>
+</button>
           </div>
         </motion.div>
       </div>
