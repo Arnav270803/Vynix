@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
-  const { setShowLogin, showLogin } = useContext(AppContext)
+  const { setShowLogin, showLogin , user } = useContext(AppContext)
+  const navigate = useNavigate();
 
   return (
     <>
@@ -31,9 +33,9 @@ const Navbar = () => {
 
             <div className='flex items-center space-x-3 mr-15'>
               <button
-                onClick={() => setShowLogin(true)} 
+                onClick={() =>user? navigate('/home') : setShowLogin(true)} 
                 className='bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-lg cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 font-medium'>
-                Sign Up
+                {user? 'Welcome Back' : 'Sign Up'}
               </button>
             </div>
           </div>
