@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Landing from './Pages/Landing';
 import Home from './Pages/Home';
 import Login from './Components/Login'
-import AppContextProvider from './context/AppContext';
+import AppContextProvider from './Context/AppContext';
 import ChatsVideosPage from './Pages/ChatsVideosPage';
 
 const App = () => {

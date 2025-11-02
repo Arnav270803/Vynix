@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { AppContext } from '../context/AppContext'
+import React from 'react'
+
 import NavbarForHome from '../Components/NavbarForHome'
 import HeroHome from '../Components/HeroHome'
 

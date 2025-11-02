@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
-import { AppContext } from '../context/AppContext'
+import { AppContext } from '../Context/AppContext'
 import { useNavigate } from 'react-router-dom'
 
 const cn = (...classes) => classes.filter(Boolean).join(' ')
