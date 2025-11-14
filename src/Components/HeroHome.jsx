@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const SimpleVynixHero = () => {
+  const Navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
 
   return (
@@ -106,6 +108,7 @@ const SimpleVynixHero = () => {
               placeholder="What do you want to make?"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              onClick={() => Navigate('/chatAndVideo')}
               className="flex-1 bg-transparent text-white placeholder-gray-400 resize-none outline-none min-h-[24px] max-h-32 scrollbar-hide"
               style={{ 
                 fontFamily: 'Hanken Grotesk, sans-serif',
