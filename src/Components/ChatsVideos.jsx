@@ -1,117 +1,208 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useRef, useEffect, useContext } from 'react'
+import { Send, ExternalLink, Sparkles } from 'lucide-react'
+import { AppContext } from '../Context/AppContext'
 
 const ChatsVideos = () => {
-  const [inputValue, setInputValue] = useState('')
+  const [messages, setMessages] = useState([
+    { id: 1, role: 'user', text: 'Create a video about the solar system', timestamp: new Date(Date.now() - 120000) },
+    { 
+      id: 2, 
+      role: 'ai', 
+      text: 'I\'ve created your video exploring the solar system. It showcases all eight planets, their unique characteristics, orbital patterns, and the fascinating dynamics of our cosmic neighborhood.', 
+      video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      links: [{ url: 'https://nasa.gov', title: 'NASA Solar System Overview' }],
+      timestamp: new Date(Date.now() - 60000)
+    }
+  ])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { backendurl, token, user } = useContext(AppContext)
+  const endRef = useRef(null)
+  const textRef = useRef(null)
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  const handleSend = async () => {
+    if (!input.trim() || loading) return
+    
+    const userMessage = { id: Date.now(), role: 'user', text: input, timestamp: new Date() }
+    setMessages(prev => [...prev, userMessage])
+    
+    const currentInput = input
+    setInput('')
+    setLoading(true)
+    
+    if (textRef.current) textRef.current.style.height = '24px'
+
+    try {
+      const response = await fetch(`${backendurl}/api/sendPrompt`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` })
+        },
+        body: JSON.stringify({ 
+          prompt: currentInput, 
+          userId: user?._id || 'guest'
+        })
+      })
+      const data = await response.json()
+      
+      const aiMessage = { 
+        id: Date.now() + 1, 
+        role: 'ai', 
+        text: data.message || 'Your video is ready', 
+        video: data.videoUrl, 
+        links: data.links || [],
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, aiMessage])
+    } catch (error) {
+      const errorMessage = { 
+        id: Date.now() + 1, 
+        role: 'ai', 
+        text: `Connection error: ${error.message}`,
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <div className='min-h-screen w-full bg-black flex flex-col relative overflow-hidden'>
-      {/* Chat Container */}
-      <div className='flex-1 overflow-y-auto px-4 py-6'>
-        <div className='max-w-3xl mx-auto space-y-6'>
-          
-          {/* User Prompt */}
-          <div className='flex justify-end'>
-            <div className='bg-zinc-800/50 backdrop-blur-sm border border-gray-700 text-white rounded-2xl px-5 py-3 max-w-[80%]'>
-              <p className='text-gray-200'>Create a video explaining the solar system with animated planets</p>
-            </div>
+    <div className='flex bg-white' style={{ height: 'calc(100vh - 64px)' }}>
+      {/* Left Timeline */}
+      <div className='w-20 flex-shrink-0 border-r border-neutral-100 flex flex-col items-center py-8 relative overflow-hidden'>
+        <div className='absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-neutral-200 to-transparent' />
+        
+        {messages.map((msg, idx) => (
+          <div key={msg.id} className='relative mb-12 flex flex-col items-center'>
+            <div className={`w-3 h-3 rounded-full z-10 ${
+              msg.role === 'user' 
+                ? 'bg-neutral-900 ring-4 ring-white' 
+                : 'bg-white border-2 border-neutral-900 ring-4 ring-white'
+            }`} />
+            <span className='text-[9px] text-neutral-400 mt-2 font-medium'>
+              {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </span>
           </div>
-
-          {/* Video Response */}
-          <div className='flex justify-start'>
-            <div className='bg-zinc-900/50 backdrop-blur-sm border border-gray-700 text-gray-200 rounded-2xl px-5 py-4 max-w-[80%]'>
-              <p className='text-sm text-gray-400 mb-3'>Your video is ready!</p>
-              
-              {/* Video Preview/Link */}
-              <div className='bg-black/40 rounded-lg p-4 border border-gray-600'>
-                <video 
-                  controls 
-                  className='w-full rounded-lg mb-3'
-                  poster="https://via.placeholder.com/640x360/1a1a1a/666666?text=Video+Preview"
-                >
-                  <source src="your-video-url.mp4" type="video/mp4" />
-                </video>
-                
-                <a 
-                  href="your-video-url.mp4" 
-                  download
-                  className='inline-block bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm transition-colors border border-gray-600'
-                >
-                  Download Video
-                </a>
-              </div>
-            </div>
+        ))}
+        
+        {loading && (
+          <div className='relative flex flex-col items-center'>
+            <div className='w-3 h-3 rounded-full bg-neutral-200 animate-pulse z-10 ring-4 ring-white' />
           </div>
-
-          {/* User Prompt */}
-          <div className='flex justify-end'>
-            <div className='bg-zinc-800/50 backdrop-blur-sm border border-gray-700 text-white rounded-2xl px-5 py-3 max-w-[80%]'>
-              <p className='text-gray-200'>Make a video about how photosynthesis works</p>
-            </div>
-          </div>
-
-          {/* Video Response with Link Only */}
-          <div className='flex justify-start'>
-            <div className='bg-zinc-900/50 backdrop-blur-sm border border-gray-700 text-gray-200 rounded-2xl px-5 py-4 max-w-[80%]'>
-              <p className='text-sm text-gray-400 mb-3'>Video generated successfully!</p>
-              
-              <div className='space-y-2'>
-                <a 
-                  href="your-video-url.mp4" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className='block text-blue-400 hover:text-blue-300 underline text-sm break-all'
-                >
-                  https://yourcdn.com/videos/photosynthesis_abc123testingdon'ttakeitseriously.mp4
-                </a>
-                
-                <div className='flex gap-2'>
-                  <button className='bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-xs transition-colors border border-gray-600'>
-                    Copy Link
-                  </button>
-                  <button className='bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-xs transition-colors border border-gray-600'>
-                    Download
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        )}
       </div>
 
-      {/* Input Area - Fixed at Bottom */}
-      <div className='px-4 py-6'>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full max-w-3xl mx-auto"
-        >
-          <div className="border border-gray-400 rounded-lg backdrop-blur-sm bg-black/20 flex items-center gap-3 px-4 py-3">
-            <textarea
-              placeholder="What do you want to make?"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="flex-1 bg-transparent text-white placeholder-gray-400 resize-none outline-none min-h-[24px] max-h-32 scrollbar-hide"
-              style={{ 
-                fontFamily: 'Hanken Grotesk, sans-serif',
-                fontSize: '18px'
-              }}
-              rows={1}
-              onInput={(e) => {
-                const target = e.target;
-                target.style.height = 'auto';
-                target.style.height = Math.min(target.scrollHeight, 128) + 'px';
-              }}
-            />
-<button className='bg-white text-black rounded-full p-2 hover:bg-gray-200 transition-colors shrink-0'>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-    <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
-  </svg>
-</button>
+      {/* Main Content */}
+      <div className='flex-1 flex flex-col min-w-0'>
+        {/* Messages */}
+        <main className='flex-1 overflow-y-auto px-8 min-h-0'>
+          <div className='max-w-4xl mx-auto py-12 space-y-16'>
+            {messages.map((message) => (
+              <article key={message.id} className={`${message.role === 'user' ? 'ml-auto max-w-2xl' : 'max-w-3xl'}`}>
+                {/* Role Badge */}
+                <div className='mb-4'>
+                  <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                    message.role === 'user'
+                      ? 'bg-neutral-900 text-white'
+                      : 'bg-neutral-100 text-neutral-900'
+                  }`}>
+                    {message.role === 'user' ? 'You' : 'AI Studio'}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className='space-y-5'>
+                  <p className='text-base leading-relaxed text-neutral-700'>
+                    {message.text}
+                  </p>
+
+                  {/* Video */}
+                  {message.video && (
+                    <div className='group'>
+                      <div className='rounded-xl overflow-hidden border border-neutral-200 bg-neutral-900 shadow-lg hover:shadow-xl transition-shadow'>
+                        <video controls className='w-full' src={message.video}>
+                          Your browser does not support video.
+                        </video>
+                      </div>
+                      <p className='text-xs text-neutral-400 mt-2 font-medium'>Video generated successfully</p>
+                    </div>
+                  )}
+
+                  {/* Links */}
+                  {message.links && message.links.length > 0 && (
+                    <div className='space-y-2 pt-2'>
+                      {message.links.map((link, index) => (
+                        <a
+                          key={index}
+                          href={link.url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 text-sm text-neutral-600 hover:text-neutral-900 transition-all'
+                        >
+                          <ExternalLink className='w-3.5 h-3.5' />
+                          <span>{link.title || link.url}</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
+
+            {/* Loading */}
+            {loading && (
+              <article className='max-w-3xl'>
+                <div className='mb-4'>
+                  <span className='inline-block px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 text-neutral-900'>
+                    AI Studio
+                  </span>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <div className='w-2 h-2 rounded-full bg-neutral-300 animate-bounce' />
+                  <div className='w-2 h-2 rounded-full bg-neutral-300 animate-bounce' style={{ animationDelay: '150ms' }} />
+                  <div className='w-2 h-2 rounded-full bg-neutral-300 animate-bounce' style={{ animationDelay: '300ms' }} />
+                </div>
+              </article>
+            )}
+
+            <div ref={endRef} />
           </div>
-        </motion.div>
+        </main>
+
+        {/* Input */}
+        <footer className='flex-shrink-0 border-t border-neutral-100 bg-white px-8 py-6'>
+          <div className='max-w-4xl mx-auto'>
+            <div className='flex items-end gap-3 px-5 py-4 bg-white border border-neutral-200 rounded-xl hover:border-neutral-300 focus-within:border-neutral-900 transition-all'>
+              <textarea
+                ref={textRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+                onInput={(e) => {
+                  e.target.style.height = '24px'
+                  e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px'
+                }}
+                placeholder='Describe your video idea...'
+                disabled={loading}
+                className='flex-1 resize-none outline-none text-base leading-relaxed bg-transparent text-neutral-900 placeholder-neutral-400'
+                style={{ height: '24px' }}
+              />
+              <button 
+                onClick={handleSend}
+                disabled={!input.trim() || loading}
+                className='flex-shrink-0 w-9 h-9 rounded-lg bg-neutral-900 text-white flex items-center justify-center hover:bg-neutral-800 disabled:bg-neutral-200 disabled:text-neutral-400 transition-all'
+              >
+                <Send size={17} strokeWidth={2} />
+              </button>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   )
