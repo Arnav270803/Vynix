@@ -114,7 +114,7 @@ const LandingPage = () => {
               containerClassName="rounded-full"
               as="button"
               className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-8 py-3 font-medium"
-               onClick={() => user ? navigate('/home') : setShowLogin(true)}
+               onClick={() => user ? navigate('/chatAndVideo') : setShowLogin(true)}
             >
               {user ? 'Welcome Back!' : 'Get Started'}
             </HoverBorderGradient>
