@@ -4,15 +4,11 @@ import { AppContext } from '../Context/AppContext'
 
 const ChatsVideos = () => {
   const [messages, setMessages] = useState([
-    { id: 1, role: 'user', text: 'Create a video about the solar system', timestamp: new Date(Date.now() - 120000) },
-    { 
-      id: 2, 
-      role: 'ai', 
-      text: 'I\'ve created your video exploring the solar system. It showcases all eight planets, their unique characteristics, orbital patterns, and the fascinating dynamics of our cosmic neighborhood.', 
-      video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-      links: [{ url: 'https://nasa.gov', title: 'NASA Solar System Overview' }],
-      timestamp: new Date(Date.now() - 60000)
-    }
+    { id: 1,
+      role: 'user',
+      text: 'Create a video about the solar system',
+      timestamp: new Date(Date.now() - 120000) }
+
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -20,6 +16,7 @@ const ChatsVideos = () => {
   const endRef = useRef(null)
   const textRef = useRef(null)
 
+  // .scrollIntoView - it's a native dom method that is scrolling the page so that target element becomes visible 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
@@ -28,25 +25,22 @@ const ChatsVideos = () => {
     if (!input.trim() || loading) return
     
     const userMessage = { id: Date.now(), role: 'user', text: input, timestamp: new Date() }
-    setMessages(prev => [...prev, userMessage])
+    setMessages(prev => [...prev, userMessage]) // this set's the history of the message , standard way of doing it in react.
     
     const currentInput = input
     setInput('')
     setLoading(true)
     
-    if (textRef.current) textRef.current.style.height = '24px'
+    if (textRef.current) textRef.current.style.height = '24px'// it is reseting the height of the send text space after sending the input 
 
     try {
-      const response = await fetch(`${backendurl}/api/sendPrompt`, {
+      const response = await fetch(`${backendurl}/api/ai/ask`, {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          ...(token && { 'Authorization': `Bearer ${token}` })
+          'Content-Type': 'application/json', ...(token && { 'Authorization': `Bearer ${token}` })
         },
-        body: JSON.stringify({ 
-          prompt: currentInput, 
-          userId: user?._id || 'guest'
-        })
+        body: JSON.stringify({ prompt: currentInput, 
+            userId: user?._id || 'guest' })
       })
       const data = await response.json()
       
