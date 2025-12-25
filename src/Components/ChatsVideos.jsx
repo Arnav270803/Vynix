@@ -3,13 +3,7 @@ import { Send, ExternalLink, Sparkles } from 'lucide-react'
 import { AppContext } from '../Context/AppContext'
 
 const ChatsVideos = () => {
-  const [messages, setMessages] = useState([
-    { id: 1,
-      role: 'user',
-      text: 'Create a video about the solar system',
-      timestamp: new Date(Date.now() - 120000) }
-
-  ])
+  const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const { backendurl, token, user } = useContext(AppContext)
@@ -47,8 +41,8 @@ const ChatsVideos = () => {
       const aiMessage = { 
         id: Date.now() + 1, 
         role: 'ai', 
-        text: data.message || 'Your video is ready', 
-        video: data.videoUrl, 
+        text: data.success ? '' : 'Failed to generate video. Please try again.', 
+        video: data.success ? data.videoUrl : null, 
         links: data.links || [],
         timestamp: new Date()
       }
