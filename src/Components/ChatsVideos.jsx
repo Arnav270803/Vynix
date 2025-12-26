@@ -114,8 +114,17 @@ const ChatsVideos = () => {
                   {message.video && (
                     <div className='group'>
                       <div className='rounded-xl overflow-hidden border border-neutral-200 bg-neutral-900 shadow-lg hover:shadow-xl transition-shadow'>
-                        <video controls className='w-full' src={message.video}>
+                        {/* <video controls className='w-full' src={message.video}>
                           Your browser does not support video.
+                        </video> */}
+                        <video 
+                          controls 
+                          autoPlay 
+                          muted 
+                          loop               // Remove if you don't want looping
+                          className='w-full' 
+                          src={message.video}>
+                            Your browser does not support video.
                         </video>
                       </div>
                       <p className='text-xs text-neutral-400 mt-2 font-medium'>Video generated successfully</p>
